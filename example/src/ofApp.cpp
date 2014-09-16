@@ -29,21 +29,6 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-//
-//    autoInput.draw( ) ;
-//    string boolString ;
-//    if ( autoInput.getIsRecording() == true )
-//        boolString = " true " ;
-//    else
-//        boolString = " false " ;
-//
-//    string playingString ;
-//    if ( autoInput.getIsPlaying() == true )
-//        playingString = " true " ;
-//    else
-//        playingString = " false " ;
-//
-
     stringstream ss;
     ss << "ofxAutomatedInput" << endl;
     ss << " [R]ecording? " << (automatedInput.isRecording()? "YES":"NO") << endl;
@@ -53,15 +38,6 @@ void ofApp::draw()
     ss << " [L]oad data from XML" << endl;
     ofDrawBitmapStringHighlight(ss.str(), 15, 25);
 }
-
-//void ofApp::automatedInputHandler( AutomatedInputData &args )
-//{
-//    cout << " EVENT IS INPUTING ! " << endl ;
-//    float hue = ( args.x / ofGetWidth() ) * 255.0f ;
-//    float saturation = ( args.y / ofGetHeight() ) * 255.0f ;
-//    ofColor bg_color = ofColor::fromHsb( hue , saturation , 185.0f ) ;
-//    ofBackground( bg_color ) ;
-//}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
@@ -135,5 +111,7 @@ void ofApp::mouseReleased(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::automatedInputPlaybackFinished(unsigned long long& duration)
 {
+    ofLog() << "ofApp::automatedInputPlaybackFinished";
+    
     ofBackground(0);
 }
