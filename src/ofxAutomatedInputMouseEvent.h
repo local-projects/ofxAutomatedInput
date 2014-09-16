@@ -1,6 +1,6 @@
 //
 //  ofxAutomatedInputMouseEvent.h
-//  ofxAutomatedInputExample
+//  ofxAutomatedInput
 //
 //  Created by Elie Zananiri on 2014-09-16.
 //
