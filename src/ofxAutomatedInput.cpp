@@ -26,6 +26,11 @@ ofxAutomatedInput::~ofxAutomatedInput()
 //--------------------------------------------------------------
 void ofxAutomatedInput::clear()
 {
+    ofLogVerbose("ofxAutomatedInput::clear");
+    
+    stopPlayback();
+    stopRecording();
+
     for (auto& it : _inputEvents) {
         delete it;
     }
@@ -35,6 +40,9 @@ void ofxAutomatedInput::clear()
 //--------------------------------------------------------------
 bool ofxAutomatedInput::saveToXml(const string &path)
 {
+    stopPlayback();
+    stopRecording();
+
     ofxXmlSettings xml;
     xml.addTag("automated_input");
     xml.pushTag("automated_input");
