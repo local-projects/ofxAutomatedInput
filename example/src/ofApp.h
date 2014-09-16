@@ -33,4 +33,5 @@ public:
     void automatedInputPlaybackFinished(unsigned long long& duration);
     
     ofxAutomatedInput automatedInput;
+    string typedKeys;
 };
