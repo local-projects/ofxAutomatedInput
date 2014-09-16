@@ -32,8 +32,9 @@ public:
     void update(ofEventArgs& args);
     
     void mouseEventReceived(ofMouseEventArgs& args);
+    void keyEventReceived(ofKeyEventArgs& args);
     
-    void startRecording(int recordFlags = OFX_AUTOMATED_INPUT_TYPE_MOUSE);
+    void startRecording(int recordFlags = (OFX_AUTOMATED_INPUT_TYPE_MOUSE | OFX_AUTOMATED_INPUT_TYPE_KEY));
     void stopRecording();
     void toggleRecording();
     
@@ -50,6 +51,7 @@ public:
     bool triggersOFEvents() { return _bTriggerOFEvents; }
     
     ofEvent<ofMouseEventArgs> mouseInputEvent;
+    ofEvent<ofKeyEventArgs> keyInputEvent;
     ofEvent<unsigned long long> playbackFinishedEvent;
     
 protected:

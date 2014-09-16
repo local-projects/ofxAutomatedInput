@@ -7,6 +7,7 @@
 //
 
 #include "ofxAutomatedInput.h"
+#include "ofxAutomatedInputKeyEvent.h"
 #include "ofxAutomatedInputMouseEvent.h"
 
 //--------------------------------------------------------------
@@ -69,6 +70,11 @@ bool ofxAutomatedInput::loadFromXml(const string& path)
                     event->loadFromXml(xml, i);
                     _inputEvents.push_back(event);
                 }
+                else if (type == OFX_AUTOMATED_INPUT_TYPE_KEY) {
+                    ofxAutomatedInputKeyEvent *event = new ofxAutomatedInputKeyEvent();
+                    event->loadFromXml(xml, i);
+                    _inputEvents.push_back(event);
+                }
                 else {
                     ofLogError("ofxAutomatedInput::loadFromXml") << "Unrecognized event type " << type;
                 }
@@ -123,6 +129,20 @@ void ofxAutomatedInput::update(ofEventArgs& args)
                     
                     ofNotifyEvent(mouseInputEvent, mouseEvent->args());
                 }
+                else if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_KEY) {
+                    ofxAutomatedInputKeyEvent * keyEvent = static_cast<ofxAutomatedInputKeyEvent *>(_inputEvents[nextIdx]);
+                    ofLogVerbose("ofxAutomatedInput::update") << "Triggering key event with type " << keyEvent->args().type;
+                    if (_bTriggerOFEvents) {
+                        if (keyEvent->args().type == ofKeyEventArgs::Pressed) {
+                            ofNotifyEvent(ofEvents().keyPressed, keyEvent->args());
+                        }
+                        else if (keyEvent->args().type == ofKeyEventArgs::Released) {
+                            ofNotifyEvent(ofEvents().keyReleased, keyEvent->args());
+                        }
+                    }
+                    
+                    ofNotifyEvent(keyInputEvent, keyEvent->args());
+                }
                 else {
                     ofLogError("ofxAutomatedInput::update") << "Unrecognized event type " << _inputEvents[nextIdx]->type() << " at index " << nextIdx;
                 }
@@ -143,7 +163,14 @@ void ofxAutomatedInput::mouseEventReceived(ofMouseEventArgs& args)
     ofLogVerbose("ofxAutomatedInput::mouseEventReceived") << "Adding event with type " << args.type << " at time " << timeOffset;
 }
 
+//--------------------------------------------------------------
+void ofxAutomatedInput::keyEventReceived(ofKeyEventArgs& args)
 {
+    unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    ofxAutomatedInputKeyEvent * event = new ofxAutomatedInputKeyEvent(timeOffset, args);
+    _inputEvents.push_back(event);
+    
+    ofLogVerbose("ofxAutomatedInput::keyEventReceived") << "Adding event with type " << args.type << " at time " << timeOffset;
 }
 
 {
@@ -169,6 +196,10 @@ void ofxAutomatedInput::startRecording(int recordFlags)
         ofAddListener(ofEvents().mouseDragged, this, &ofxAutomatedInput::mouseEventReceived);
         ofAddListener(ofEvents().mouseReleased, this, &ofxAutomatedInput::mouseEventReceived);
     }
+    if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_KEY) {
+        ofAddListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
+        ofAddListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
+    }
 }
 
 //--------------------------------------------------------------
@@ -183,6 +214,10 @@ void ofxAutomatedInput::stopRecording()
             ofRemoveListener(ofEvents().mousePressed, this, &ofxAutomatedInput::mouseEventReceived);
             ofRemoveListener(ofEvents().mouseDragged, this, &ofxAutomatedInput::mouseEventReceived);
             ofRemoveListener(ofEvents().mouseReleased, this, &ofxAutomatedInput::mouseEventReceived);
+        }
+        if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_KEY) {
+            ofRemoveListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
+            ofRemoveListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
         }
     }
 }
