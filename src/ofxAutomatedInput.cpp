@@ -64,7 +64,6 @@ bool ofxAutomatedInput::loadFromXml(const string& path)
         if (xml.pushTag("automated_input")) {
             for (int i = 0 ; i < xml.getNumTags("event"); i++) {
                 ofxAutomatedInputType type = (ofxAutomatedInputType)xml.getAttribute("event", "event_type", (int)OFX_AUTOMATED_INPUT_TYPE_NONE, i);
-                ofxAutomatedInputEvent * event;
                 if (type == OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
                     ofxAutomatedInputMouseEvent *event = new ofxAutomatedInputMouseEvent();
                     event->loadFromXml(xml, i);
