@@ -12,6 +12,7 @@
 		6429B91F19C87D090080E366 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B91919C87D090080E366 /* tinyxmlerror.cpp */; };
 		6429B92019C87D090080E366 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B91A19C87D090080E366 /* tinyxmlparser.cpp */; };
 		6429B92119C87D090080E366 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B91C19C87D090080E366 /* ofxXmlSettings.cpp */; };
+		6429B92419C883270080E366 /* ofxAutomatedInputMouseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B92219C883270080E366 /* ofxAutomatedInputMouseEvent.cpp */; };
 		6474CBF619BCE019003C94E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF019BCE00B003C94E2 /* AVFoundation.framework */; };
 		6474CBF719BCE019003C94E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF119BCE00B003C94E2 /* CoreMedia.framework */; };
 		6474CBF819BCE019003C94E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF219BCE00B003C94E2 /* QuartzCore.framework */; };
@@ -67,7 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6429B90E19C87C640080E366 /* AutomatedInputData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutomatedInputData.h; sourceTree = "<group>"; };
+		6429B90E19C87C640080E366 /* ofxAutomatedInputEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInputEvent.h; sourceTree = "<group>"; };
 		6429B90F19C87C640080E366 /* ofxAutomatedInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAutomatedInput.cpp; sourceTree = "<group>"; };
 		6429B91019C87C640080E366 /* ofxAutomatedInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInput.h; sourceTree = "<group>"; };
 		6429B91719C87D090080E366 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
@@ -76,6 +77,8 @@
 		6429B91A19C87D090080E366 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		6429B91C19C87D090080E366 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		6429B91D19C87D090080E366 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
+		6429B92219C883270080E366 /* ofxAutomatedInputMouseEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAutomatedInputMouseEvent.cpp; sourceTree = "<group>"; };
+		6429B92319C883270080E366 /* ofxAutomatedInputMouseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInputMouseEvent.h; sourceTree = "<group>"; };
 		6474CBF019BCE00B003C94E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6474CBF119BCE00B003C94E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		6474CBF219BCE00B003C94E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -146,9 +149,11 @@
 		6429B90D19C87C640080E366 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6429B90E19C87C640080E366 /* AutomatedInputData.h */,
 				6429B90F19C87C640080E366 /* ofxAutomatedInput.cpp */,
 				6429B91019C87C640080E366 /* ofxAutomatedInput.h */,
+				6429B90E19C87C640080E366 /* ofxAutomatedInputEvent.h */,
+				6429B92219C883270080E366 /* ofxAutomatedInputMouseEvent.cpp */,
+				6429B92319C883270080E366 /* ofxAutomatedInputMouseEvent.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				6429B91E19C87D090080E366 /* tinyxml.cpp in Sources */,
 				6429B91419C87C640080E366 /* ofxAutomatedInput.cpp in Sources */,
 				6429B91F19C87D090080E366 /* tinyxmlerror.cpp in Sources */,
+				6429B92419C883270080E366 /* ofxAutomatedInputMouseEvent.cpp in Sources */,
 				6429B92019C87D090080E366 /* tinyxmlparser.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				6429B92119C87D090080E366 /* ofxXmlSettings.cpp in Sources */,
