@@ -14,6 +14,7 @@
 		6429B92119C87D090080E366 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B91C19C87D090080E366 /* ofxXmlSettings.cpp */; };
 		6429B92419C883270080E366 /* ofxAutomatedInputMouseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B92219C883270080E366 /* ofxAutomatedInputMouseEvent.cpp */; };
 		6429B92719C8D5210080E366 /* ofxAutomatedInputKeyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B92519C8D5210080E366 /* ofxAutomatedInputKeyEvent.cpp */; };
+		6429B92A19C8E0E50080E366 /* ofxAutomatedInputTouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6429B92819C8E0E50080E366 /* ofxAutomatedInputTouchEvent.cpp */; };
 		6474CBF619BCE019003C94E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF019BCE00B003C94E2 /* AVFoundation.framework */; };
 		6474CBF719BCE019003C94E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF119BCE00B003C94E2 /* CoreMedia.framework */; };
 		6474CBF819BCE019003C94E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6474CBF219BCE00B003C94E2 /* QuartzCore.framework */; };
@@ -82,6 +83,8 @@
 		6429B92319C883270080E366 /* ofxAutomatedInputMouseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInputMouseEvent.h; sourceTree = "<group>"; };
 		6429B92519C8D5210080E366 /* ofxAutomatedInputKeyEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAutomatedInputKeyEvent.cpp; sourceTree = "<group>"; };
 		6429B92619C8D5210080E366 /* ofxAutomatedInputKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInputKeyEvent.h; sourceTree = "<group>"; };
+		6429B92819C8E0E50080E366 /* ofxAutomatedInputTouchEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAutomatedInputTouchEvent.cpp; sourceTree = "<group>"; };
+		6429B92919C8E0E50080E366 /* ofxAutomatedInputTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAutomatedInputTouchEvent.h; sourceTree = "<group>"; };
 		6474CBF019BCE00B003C94E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6474CBF119BCE00B003C94E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		6474CBF219BCE00B003C94E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 				6429B92619C8D5210080E366 /* ofxAutomatedInputKeyEvent.h */,
 				6429B92219C883270080E366 /* ofxAutomatedInputMouseEvent.cpp */,
 				6429B92319C883270080E366 /* ofxAutomatedInputMouseEvent.h */,
+				6429B92819C8E0E50080E366 /* ofxAutomatedInputTouchEvent.cpp */,
+				6429B92919C8E0E50080E366 /* ofxAutomatedInputTouchEvent.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				6429B91E19C87D090080E366 /* tinyxml.cpp in Sources */,
 				6429B91419C87C640080E366 /* ofxAutomatedInput.cpp in Sources */,
 				6429B91F19C87D090080E366 /* tinyxmlerror.cpp in Sources */,
+				6429B92A19C8E0E50080E366 /* ofxAutomatedInputTouchEvent.cpp in Sources */,
 				6429B92419C883270080E366 /* ofxAutomatedInputMouseEvent.cpp in Sources */,
 				6429B92019C87D090080E366 /* tinyxmlparser.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,

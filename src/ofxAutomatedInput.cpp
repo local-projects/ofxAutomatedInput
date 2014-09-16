@@ -9,6 +9,7 @@
 #include "ofxAutomatedInput.h"
 #include "ofxAutomatedInputKeyEvent.h"
 #include "ofxAutomatedInputMouseEvent.h"
+#include "ofxAutomatedInputTouchEvent.h"
 
 //--------------------------------------------------------------
 ofxAutomatedInput::ofxAutomatedInput()
@@ -72,6 +73,11 @@ bool ofxAutomatedInput::loadFromXml(const string& path)
                 }
                 else if (type == OFX_AUTOMATED_INPUT_TYPE_KEY) {
                     ofxAutomatedInputKeyEvent *event = new ofxAutomatedInputKeyEvent();
+                    event->loadFromXml(xml, i);
+                    _inputEvents.push_back(event);
+                }
+                else if (type == OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
+                    ofxAutomatedInputTouchEvent *event = new ofxAutomatedInputTouchEvent();
                     event->loadFromXml(xml, i);
                     _inputEvents.push_back(event);
                 }
@@ -143,6 +149,29 @@ void ofxAutomatedInput::update(ofEventArgs& args)
                     
                     ofNotifyEvent(keyInputEvent, keyEvent->args());
                 }
+                else if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
+                    ofxAutomatedInputTouchEvent * touchEvent = static_cast<ofxAutomatedInputTouchEvent *>(_inputEvents[nextIdx]);
+                    ofLogVerbose("ofxAutomatedInput::update") << "Triggering touch event with type " << touchEvent->args().type;
+                    if (_bTriggerOFEvents) {
+                        if (touchEvent->args().type == ofTouchEventArgs::down) {
+                            ofNotifyEvent(ofEvents().touchDown, touchEvent->args());
+                        }
+                        else if (touchEvent->args().type == ofTouchEventArgs::move) {
+                            ofNotifyEvent(ofEvents().touchMoved, touchEvent->args());
+                        }
+                        else if (touchEvent->args().type == ofTouchEventArgs::up) {
+                            ofNotifyEvent(ofEvents().touchUp, touchEvent->args());
+                        }
+                        else if (touchEvent->args().type == ofTouchEventArgs::doubleTap) {
+                            ofNotifyEvent(ofEvents().touchDoubleTap, touchEvent->args());
+                        }
+                        else if (touchEvent->args().type == ofTouchEventArgs::cancel) {
+                            ofNotifyEvent(ofEvents().touchCancelled, touchEvent->args());
+                        }
+                    }
+                    
+                    ofNotifyEvent(mouseInputEvent, touchEvent->args());
+                }
                 else {
                     ofLogError("ofxAutomatedInput::update") << "Unrecognized event type " << _inputEvents[nextIdx]->type() << " at index " << nextIdx;
                 }
@@ -173,7 +202,14 @@ void ofxAutomatedInput::keyEventReceived(ofKeyEventArgs& args)
     ofLogVerbose("ofxAutomatedInput::keyEventReceived") << "Adding event with type " << args.type << " at time " << timeOffset;
 }
 
+//--------------------------------------------------------------
+void ofxAutomatedInput::touchEventReceived(ofTouchEventArgs& args)
 {
+    unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    ofxAutomatedInputTouchEvent * event = new ofxAutomatedInputTouchEvent(timeOffset, args);
+    _inputEvents.push_back(event);
+    
+    ofLogVerbose("ofxAutomatedInput::touchEventReceived") << "Adding event with type " << args.type << " at time " << timeOffset;
 }
 
 //--------------------------------------------------------------
@@ -200,6 +236,13 @@ void ofxAutomatedInput::startRecording(int recordFlags)
         ofAddListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
         ofAddListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
     }
+    if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
+        ofAddListener(ofEvents().touchDown, this, &ofxAutomatedInput::touchEventReceived);
+        ofAddListener(ofEvents().touchMoved, this, &ofxAutomatedInput::touchEventReceived);
+        ofAddListener(ofEvents().touchUp, this, &ofxAutomatedInput::touchEventReceived);
+        ofAddListener(ofEvents().touchDoubleTap, this, &ofxAutomatedInput::touchEventReceived);
+        ofAddListener(ofEvents().touchCancelled, this, &ofxAutomatedInput::touchEventReceived);
+    }
 }
 
 //--------------------------------------------------------------
@@ -218,6 +261,13 @@ void ofxAutomatedInput::stopRecording()
         if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_KEY) {
             ofRemoveListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
             ofRemoveListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
+        }
+        if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
+            ofRemoveListener(ofEvents().touchDown, this, &ofxAutomatedInput::touchEventReceived);
+            ofRemoveListener(ofEvents().touchMoved, this, &ofxAutomatedInput::touchEventReceived);
+            ofRemoveListener(ofEvents().touchUp, this, &ofxAutomatedInput::touchEventReceived);
+            ofRemoveListener(ofEvents().touchDoubleTap, this, &ofxAutomatedInput::touchEventReceived);
+            ofRemoveListener(ofEvents().touchCancelled, this, &ofxAutomatedInput::touchEventReceived);
         }
     }
 }

@@ -33,6 +33,7 @@ public:
     
     void mouseEventReceived(ofMouseEventArgs& args);
     void keyEventReceived(ofKeyEventArgs& args);
+    void touchEventReceived(ofTouchEventArgs& args);
     
     void startRecording(int recordFlags = (OFX_AUTOMATED_INPUT_TYPE_MOUSE | OFX_AUTOMATED_INPUT_TYPE_KEY));
     void stopRecording();
@@ -52,6 +53,7 @@ public:
     
     ofEvent<ofMouseEventArgs> mouseInputEvent;
     ofEvent<ofKeyEventArgs> keyInputEvent;
+    ofEvent<ofTouchEventArgs> touchInputEvent;
     ofEvent<unsigned long long> playbackFinishedEvent;
     
 protected:
