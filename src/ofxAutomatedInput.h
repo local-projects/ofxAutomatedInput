@@ -1,54 +1,74 @@
-#ifndef OFXAUTOMATEDINPUT_H
-#define OFXAUTOMATEDINPUT_H
+//
+//  ofxAutomatedInput.h
+//  ofxAutomatedInput
+//
+//  Created by Elie Zananiri on 2014-07-05.
+//
+//
 
 #include "ofMain.h"
-
-/*
-    Created by Ben McChesney
-    @ Helios Interactive
-
-    301 8th Street, STE 250
-    San Francisco , CA
-
-    5/3/2013
-*/
-
+#include "ofxAutomatedInputMouseEvent.h"
 #include "ofxXmlSettings.h"
-#include "AutomatedInputData.h"
 
-
-class ofxAutomatedInput
+//--------------------------------------------------------------
+enum ofxAutomatedInputMode
 {
-    public:
-        ofxAutomatedInput();
-        virtual ~ofxAutomatedInput();
-
-        void update( ) ;
-        void draw ( ) ;
-        void toggleRecording( ) ;
-        void togglePlayback( ) ;
-        void loadXml( string path ) ;
-        void saveXml( string path ) ;
-        void reset( ) ;
-
-        void addInput( float x , float y , int userId = 0 ) ;
-        bool getIsRecording() ;
-        bool getIsPlaying() ;
-
-        string getDebugString( ) ;
-        ofEvent<AutomatedInputData> AUTOMATED_INPUT ;
-
-    protected:
-    private:
-
-        vector<AutomatedInputData> inputData ;
-
-        int playbackIndex ;
-        float maxLoopTime ;
-        float loopOffsetTime ;
-        float startPlaybackTime ;
-        float startRecordingTime ;
-        ofxXmlSettings xml ;
+    OFX_AUTOMATED_INPUT_MODE_IDLE = 0,
+    OFX_AUTOMATED_INPUT_MODE_RECORD,
+    OFX_AUTOMATED_INPUT_MODE_PLAYBACK,
 };
 
-#endif // OFXAUTOMATEDINPUT_H
+//--------------------------------------------------------------
+class ofxAutomatedInput
+{
+public:
+    ofxAutomatedInput();
+    virtual ~ofxAutomatedInput();
+    
+    void clear();
+    bool saveToXml(const string& path);
+    bool loadFromXml(const string& path);
+
+    void update(ofEventArgs& args);
+    
+    void mouseEventReceived(ofMouseEventArgs& args);
+    
+    void startRecording(int recordFlags = OFX_AUTOMATED_INPUT_TYPE_MOUSE);
+    void stopRecording();
+    void toggleRecording();
+    
+    void startPlayback(int playbackFlags = OFX_AUTOMATED_INPUT_TYPE_ALL);
+    void stopPlayback();
+    void togglePlayback();
+    
+    ofxAutomatedInputMode mode() { return _mode; }
+    bool isIdle() { return (_mode == OFX_AUTOMATED_INPUT_MODE_IDLE); }
+    bool isPlaying() { return (_mode == OFX_AUTOMATED_INPUT_MODE_PLAYBACK); }
+    bool isRecording() { return (_mode == OFX_AUTOMATED_INPUT_MODE_RECORD); }
+    
+    void setTriggerOFEvents(bool bTriggerOFEvents) { _bTriggerOFEvents = bTriggerOFEvents; }
+    bool triggersOFEvents() { return _bTriggerOFEvents; }
+    
+    ofEvent<ofMouseEventArgs> mouseInputEvent;
+    ofEvent<unsigned long long> playbackFinishedEvent;
+    
+protected:
+    ofxAutomatedInputMode _mode;
+    bool _bTriggerOFEvents;
+    
+    int _recordFlags;
+    int _playbackFlags;
+    
+    unsigned long long _recordStartTime;
+    unsigned long long _playbackStartTime;
+    int _playbackIdx;
+    
+    vector<ofxAutomatedInputEvent *> _inputEvents;
+    
+    int playbackIndex ;
+    float maxLoopTime ;
+    float loopOffsetTime ;
+    float startPlaybackTime ;
+    float startRecordingTime ;
+    ofxXmlSettings xml ;
+};
