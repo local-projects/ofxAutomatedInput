@@ -1,17 +1,17 @@
-#include "testApp.h"
+#include "ofApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){
-    ofAddListener( autoInput.AUTOMATED_INPUT , this , &testApp::automatedInputHandler ) ;
+void ofApp::setup(){
+    ofAddListener( autoInput.AUTOMATED_INPUT , this , &ofApp::automatedInputHandler ) ;
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update(){
     autoInput.update() ;
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void ofApp::draw(){
 
     autoInput.draw( ) ;
     stringstream ss ;
@@ -37,7 +37,7 @@ void testApp::draw(){
     ofDrawBitmapStringHighlight( ss.str() , 15 , 25 ) ;
 }
 
-void testApp::automatedInputHandler( AutomatedInputData &args )
+void ofApp::automatedInputHandler( AutomatedInputData &args )
 {
     cout << " EVENT IS INPUTING ! " << endl ;
     float hue = ( args.x / ofGetWidth() ) * 255.0f ;
@@ -46,7 +46,7 @@ void testApp::automatedInputHandler( AutomatedInputData &args )
     ofBackground( bg_color ) ;
 }
 //--------------------------------------------------------------
-void testApp::keyPressed(int key){
+void ofApp::keyPressed(int key){
 
     ofFileDialogResult result ;
     switch ( key )
@@ -83,41 +83,41 @@ void testApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
+void ofApp::keyReleased(int key){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y){
+void ofApp::mouseMoved(int x, int y){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseDragged(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+void ofApp::mouseReleased(int x, int y, int button){
     autoInput.addInput( x , y , 0 ) ;
 }
 
 //--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+void ofApp::windowResized(int w, int h){
 
 }
 
 //--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
+void ofApp::gotMessage(ofMessage msg){
 
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }

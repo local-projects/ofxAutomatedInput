@@ -1,10 +1,17 @@
-#include "testApp.h"
-#include "ofAppGlutWindow.h"
+//
+//  main.cpp
+//  ofxAutomatedInputExample
+//
+//  Created by Elie Zananiri on 2014-07-05.
+//
+//
+
+#include "ofMain.h"
+#include "ofApp.h"
 
 //--------------------------------------------------------------
-int main(){
-	ofAppGlutWindow window; // create a window
-	// set width, height, mode (OF_WINDOW or OF_FULLSCREEN)
-	ofSetupOpenGL(&window, 1024, 768, OF_WINDOW);
-	ofRunApp(new testApp()); // start the app
+int main()
+{
+    ofSetupOpenGL(1024, 768, OF_WINDOW);
+	ofRunApp(new ofApp());
 }
