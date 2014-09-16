@@ -35,9 +35,9 @@ void ofxAutomatedInputMouseEvent::loadFromXml(ofxXmlSettings& xml, int idx)
         _timeOffset = xml.getValue("time_offset", 0);
         
         _args.type = (ofMouseEventArgs::Type)xml.getValue("type", (int)ofMouseEventArgs::Moved);
-        _args.button = xml.getValue("button", _args.button);
-        _args.x = xml.getValue("x", _args.x);
-        _args.y = xml.getValue("y", _args.y);
+        _args.button = xml.getValue("button", 0);
+        _args.x = xml.getValue("x", 0.0f);
+        _args.y = xml.getValue("y", 0.0f);
     }
     xml.popTag();
 }

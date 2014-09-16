@@ -3,7 +3,7 @@
 //  ofxAutomatedInput
 //
 //  Created by Elie Zananiri on 2014-09-16.
-//  Based on https://github.com/HeliosInteractive/ofxAutomatedInput
+//  
 //
 
 #include "ofxAutomatedInputKeyEvent.h"
