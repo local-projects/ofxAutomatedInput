@@ -7,7 +7,7 @@
 //
 
 #include "ofMain.h"
-#include "ofxAutomatedInputMouseEvent.h"
+#include "ofxAutomatedInputEvent.h"
 #include "ofxXmlSettings.h"
 
 //--------------------------------------------------------------

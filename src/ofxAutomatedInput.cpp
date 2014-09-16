@@ -7,6 +7,7 @@
 //
 
 #include "ofxAutomatedInput.h"
+#include "ofxAutomatedInputMouseEvent.h"
 
 //--------------------------------------------------------------
 ofxAutomatedInput::ofxAutomatedInput()
