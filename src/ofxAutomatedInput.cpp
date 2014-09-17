@@ -170,7 +170,7 @@ void ofxAutomatedInput::update(ofEventArgs& args)
                         }
                     }
                     
-                    ofNotifyEvent(mouseInputEvent, touchEvent->args());
+                    ofNotifyEvent(touchInputEvent, touchEvent->args());
                 }
                 else {
                     ofLogError("ofxAutomatedInput::update") << "Unrecognized event type " << _inputEvents[nextIdx]->type() << " at index " << nextIdx;
