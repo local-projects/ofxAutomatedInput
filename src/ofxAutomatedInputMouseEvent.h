@@ -26,6 +26,8 @@ public:
     void saveToXml(ofxXmlSettings& xml);
     void loadFromXml(ofxXmlSettings& xml, int idx);
     
+    void debug();
+    
     void setArgs(const ofMouseEventArgs& args) { _args = args; }
     ofMouseEventArgs& args() { return _args; }
     

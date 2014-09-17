@@ -29,6 +29,8 @@ public:
     bool saveToXml(const string& path);
     bool loadFromXml(const string& path);
 
+    void debug();
+    
     void update(ofEventArgs& args);
     
     void mouseEventReceived(ofMouseEventArgs& args);

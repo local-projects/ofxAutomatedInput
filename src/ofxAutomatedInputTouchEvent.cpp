@@ -65,3 +65,20 @@ void ofxAutomatedInputTouchEvent::loadFromXml(ofxXmlSettings& xml, int idx)
     }
     xml.popTag();
 }
+
+//--------------------------------------------------------------
+void ofxAutomatedInputTouchEvent::debug()
+{
+    ofPushStyle();
+    
+    const static float kMinTouchSize = 16.0f;
+    
+    ofSetLineWidth(2);
+    ofNoFill();
+    ofSetColor(255, 255);
+    ofFill();
+    ofSetColor(255, 127);
+    ofEllipse(_args.x, _args.y, MAX(kMinTouchSize, _args.width), MAX(kMinTouchSize, _args.height));
+    
+    ofPopStyle();
+}

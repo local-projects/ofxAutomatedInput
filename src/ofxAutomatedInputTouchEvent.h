@@ -26,6 +26,8 @@ public:
     void saveToXml(ofxXmlSettings& xml);
     void loadFromXml(ofxXmlSettings& xml, int idx);
     
+    void debug();
+    
     void setArgs(const ofTouchEventArgs& args) { _args = args; }
     ofTouchEventArgs& args() { return _args; }
     

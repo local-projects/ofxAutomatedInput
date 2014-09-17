@@ -34,6 +34,8 @@ public:
     virtual void saveToXml(ofxXmlSettings& xml) = 0;
     virtual void loadFromXml(ofxXmlSettings& xml, int idx) = 0;
     
+    virtual void debug() {}
+    
     void setType(ofxAutomatedInputType type) { _type = type; }
     ofxAutomatedInputType type() const { return _type; }
     

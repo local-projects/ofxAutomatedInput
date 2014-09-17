@@ -41,3 +41,31 @@ void ofxAutomatedInputMouseEvent::loadFromXml(ofxXmlSettings& xml, int idx)
     }
     xml.popTag();
 }
+
+//--------------------------------------------------------------
+void ofxAutomatedInputMouseEvent::debug()
+{
+    ofPushStyle();
+    
+    const static float kPointerSize = 16.0f;
+    
+    ofVec2f pos(_args.x, _args.y);
+    bool bActive = (_args.type == ofMouseEventArgs::Pressed || _args.type == ofMouseEventArgs::Dragged);
+    float lineLength = bActive? 8.0f : 12.0f;
+    
+    ofFill();
+    
+    if (bActive) {
+        ofSetColor(255, 127);
+        ofCircle(pos, bActive? 12.0f : 1.0f);
+    }
+    
+    ofSetColor(255, 255);
+    ofSetLineWidth(2);
+    ofLine(pos.x - kPointerSize, pos.y, pos.x - kPointerSize + lineLength, pos.y);
+    ofLine(pos.x + kPointerSize, pos.y, pos.x + kPointerSize - lineLength, pos.y);
+    ofLine(pos.x, pos.y - kPointerSize, pos.x, pos.y - kPointerSize + lineLength);
+    ofLine(pos.x, pos.y + kPointerSize, pos.x, pos.y + kPointerSize - lineLength);
+    
+    ofPopStyle();
+}

@@ -100,6 +100,14 @@ bool ofxAutomatedInput::loadFromXml(const string& path)
 }
 
 //--------------------------------------------------------------
+void ofxAutomatedInput::debug()
+{
+    if (_playbackIdx >= 0 && _playbackIdx < _inputEvents.size()) {
+        _inputEvents[_playbackIdx]->debug();
+    }
+}
+
+//--------------------------------------------------------------
 void ofxAutomatedInput::update(ofEventArgs& args)
 {
     if (isPlaying()) {
