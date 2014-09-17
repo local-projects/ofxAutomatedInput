@@ -6,6 +6,8 @@
 //  Based on https://github.com/HeliosInteractive/ofxAutomatedInput
 //
 
+#pragma once
+
 #include "ofMain.h"
 #include "ofxAutomatedInputEvent.h"
 #include "ofxXmlSettings.h"
