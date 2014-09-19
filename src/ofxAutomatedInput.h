@@ -47,13 +47,13 @@ public:
     void stopPlayback();
     void togglePlayback();
     
-    ofxAutomatedInputMode mode() { return _mode; }
-    bool isIdle() { return (_mode == OFX_AUTOMATED_INPUT_MODE_IDLE); }
-    bool isPlaying() { return (_mode == OFX_AUTOMATED_INPUT_MODE_PLAYBACK); }
-    bool isRecording() { return (_mode == OFX_AUTOMATED_INPUT_MODE_RECORD); }
+    ofxAutomatedInputMode mode() const { return _mode; }
+    bool isIdle() const { return (_mode == OFX_AUTOMATED_INPUT_MODE_IDLE); }
+    bool isPlaying() const { return (_mode == OFX_AUTOMATED_INPUT_MODE_PLAYBACK); }
+    bool isRecording() const { return (_mode == OFX_AUTOMATED_INPUT_MODE_RECORD); }
     
     void setTriggerOFEvents(bool bTriggerOFEvents) { _bTriggerOFEvents = bTriggerOFEvents; }
-    bool triggersOFEvents() { return _bTriggerOFEvents; }
+    bool triggersOFEvents() const { return _bTriggerOFEvents; }
     
     ofEvent<ofMouseEventArgs> mouseInputEvent;
     ofEvent<ofKeyEventArgs> keyInputEvent;
