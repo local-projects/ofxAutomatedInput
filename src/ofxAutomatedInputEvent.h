@@ -13,11 +13,12 @@
 //--------------------------------------------------------------
 enum ofxAutomatedInputType
 {
-    OFX_AUTOMATED_INPUT_TYPE_NONE  = 0x0000,
-    OFX_AUTOMATED_INPUT_TYPE_MOUSE = 0x0001,
-    OFX_AUTOMATED_INPUT_TYPE_KEY   = 0x0010,
-    OFX_AUTOMATED_INPUT_TYPE_TOUCH = 0x0100,
-    OFX_AUTOMATED_INPUT_TYPE_ALL   = 0x1111,
+    OFX_AUTOMATED_INPUT_TYPE_NONE    = 0x0000,
+    OFX_AUTOMATED_INPUT_TYPE_CONTROL = 0x0001,
+    OFX_AUTOMATED_INPUT_TYPE_MOUSE   = 0x0010,
+    OFX_AUTOMATED_INPUT_TYPE_KEY     = 0x0100,
+    OFX_AUTOMATED_INPUT_TYPE_TOUCH   = 0x1000,
+    OFX_AUTOMATED_INPUT_TYPE_ALL     = 0x1111,
 };
 
 //--------------------------------------------------------------
