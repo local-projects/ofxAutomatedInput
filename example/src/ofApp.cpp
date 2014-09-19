@@ -42,10 +42,11 @@ void ofApp::draw()
     ss << "ofxAutomatedInput" << endl;
     ss << " [R]ecording? " << (automatedInput.isRecording()? "YES":"NO") << endl;
     ss << " [P]laying? " << (automatedInput.isPlaying()? "YES":"NO") << endl;
+    ss << " [L]ooping? " << (automatedInput.isLooping()? "YES":"NO") << endl;
     ss << " [D]ebug view? " << (bDebug? "YES":"NO") << endl;
     ss << " [C]lear data" << endl;
     ss << " [S]ave data to XML" << endl;
-    ss << " [L]oad data from XML" << endl;
+    ss << " [O]pen data from XML" << endl;
     ss << endl;
     ss << "Typed keys: " << typedKeys << endl;
     ofDrawBitmapStringHighlight(ss.str(), 15, 25);
@@ -74,9 +75,14 @@ void ofApp::keyPressed(int key)
             case 'c':
             case 'C':
                 automatedInput.clear();
-                break ;
+                break;
                 
-            case 's' :
+            case 'l':
+            case 'L':
+                automatedInput.setLooping(!automatedInput.isLooping());
+                break;
+                
+            case 's':
             case 'S':
                 result = ofSystemSaveDialog("data.xml", "Export input data to XML" );
                 if (result.bSuccess) {
@@ -84,8 +90,8 @@ void ofApp::keyPressed(int key)
                 }
                 break;
                 
-            case 'l':
-            case 'L':
+            case 'o':
+            case 'O':
                 result = ofSystemLoadDialog("Select an input data XML file", false);
                 if (result.bSuccess) {
                     automatedInput.loadFromXml(result.getPath());
@@ -105,6 +111,9 @@ void ofApp::keyPressed(int key)
         }
         else if (key == 'r' || key == 'R') {
             // Ignore, as this toggles recording.
+        }
+        else if (key == 'l' || key == 'L') {
+            automatedInput.setLooping(!automatedInput.isLooping());
         }
         else if (key == 'd' || key == 'D') {
             ofBackground(0);
