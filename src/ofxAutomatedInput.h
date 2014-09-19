@@ -59,8 +59,8 @@ public:
     ofEvent<ofKeyEventArgs> keyInputEvent;
     ofEvent<ofTouchEventArgs> touchInputEvent;
     
-    ofEvent<unsigned long long> playbackStartedEvent;
-    ofEvent<unsigned long long> playbackStoppedEvent;
+    ofEvent<long long> playbackStartedEvent;
+    ofEvent<long long> playbackStoppedEvent;
     
 protected:
     ofxAutomatedInputMode _mode;
@@ -69,8 +69,8 @@ protected:
     int _recordFlags;
     int _playbackFlags;
     
-    unsigned long long _recordStartTime;
-    unsigned long long _playbackStartTime;
+    long long _recordStartTime;
+    long long _playbackStartTime;
     int _playbackIdx;
     
     vector<ofxAutomatedInputEvent *> _inputEvents;

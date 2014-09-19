@@ -114,7 +114,7 @@ void ofxAutomatedInput::debug()
 void ofxAutomatedInput::update(ofEventArgs& args)
 {
     if (isPlaying()) {
-        unsigned long long currTimeOffset = ofGetElapsedTimeMillis() - _playbackStartTime;
+        long long currTimeOffset = ofGetElapsedTimeMillis() - _playbackStartTime;
         
         int nextIdx = _playbackIdx + 1;
         if (nextIdx >= _inputEvents.size()) {
@@ -207,7 +207,7 @@ void ofxAutomatedInput::update(ofEventArgs& args)
 //--------------------------------------------------------------
 void ofxAutomatedInput::mouseEventReceived(ofMouseEventArgs& args)
 {
-    unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
     ofxAutomatedInputMouseEvent * event = new ofxAutomatedInputMouseEvent(timeOffset, args);
     _inputEvents.push_back(event);
     
@@ -217,7 +217,7 @@ void ofxAutomatedInput::mouseEventReceived(ofMouseEventArgs& args)
 //--------------------------------------------------------------
 void ofxAutomatedInput::keyEventReceived(ofKeyEventArgs& args)
 {
-    unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
     ofxAutomatedInputKeyEvent * event = new ofxAutomatedInputKeyEvent(timeOffset, args);
     _inputEvents.push_back(event);
     
@@ -227,7 +227,7 @@ void ofxAutomatedInput::keyEventReceived(ofKeyEventArgs& args)
 //--------------------------------------------------------------
 void ofxAutomatedInput::touchEventReceived(ofTouchEventArgs& args)
 {
-    unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
     ofxAutomatedInputTouchEvent * event = new ofxAutomatedInputTouchEvent(timeOffset, args);
     _inputEvents.push_back(event);
     
@@ -276,7 +276,7 @@ void ofxAutomatedInput::startRecording(int recordFlags)
 void ofxAutomatedInput::stopRecording()
 {
     if (isRecording()) {
-        unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+        long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
         ofLogNotice("ofxAutomatedInput::stopRecording") << ofGetElapsedTimeMillis();
 
         ofxAutomatedInputControlEvent * event = new ofxAutomatedInputControlEvent(timeOffset, ofxAutomatedInputControlEvent::Stop);
@@ -336,7 +336,7 @@ void ofxAutomatedInput::stopPlayback()
 {
     if (isPlaying()) {
         _mode = OFX_AUTOMATED_INPUT_MODE_IDLE;
-        unsigned long long currTimeOffset = ofGetElapsedTimeMillis() - _playbackStartTime;
+        long long currTimeOffset = ofGetElapsedTimeMillis() - _playbackStartTime;
         ofLogNotice("ofxAutomatedInput::stopPlayback") << currTimeOffset;
 
         ofRemoveListener(ofEvents().update, this, &ofxAutomatedInput::update);

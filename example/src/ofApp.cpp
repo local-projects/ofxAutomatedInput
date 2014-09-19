@@ -160,7 +160,7 @@ void ofApp::mouseReleased(int x, int y, int button)
 }
 
 //--------------------------------------------------------------
-void ofApp::automatedInputPlaybackStarted(unsigned long long& duration)
+void ofApp::automatedInputPlaybackStarted(long long& duration)
 {
     ofLog() << "ofApp::automatedInputPlaybackStarted";
     
@@ -169,7 +169,7 @@ void ofApp::automatedInputPlaybackStarted(unsigned long long& duration)
 }
 
 //--------------------------------------------------------------
-void ofApp::automatedInputPlaybackStopped(unsigned long long& duration)
+void ofApp::automatedInputPlaybackStopped(long long& duration)
 {
     ofLog() << "ofApp::automatedInputPlaybackStopped";
 }
