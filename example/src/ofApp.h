@@ -34,5 +34,6 @@ public:
     void automatedInputPlaybackStopped(unsigned long long& duration);
     
     ofxAutomatedInput automatedInput;
+    bool bDebug;
     string typedKeys;
 };

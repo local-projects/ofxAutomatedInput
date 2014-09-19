@@ -17,6 +17,7 @@ void ofApp::setup()
     ofSetBackgroundAuto(false);
     
     ofBackground(0);
+    bDebug = false;
     typedKeys = "";
     
     ofAddListener(automatedInput.playbackStartedEvent, this, &ofApp::automatedInputPlaybackStarted);
@@ -32,10 +33,16 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    if (automatedInput.isPlaying() && bDebug) {
+        ofBackground(0);
+        automatedInput.debug();
+    }
+    
     stringstream ss;
     ss << "ofxAutomatedInput" << endl;
     ss << " [R]ecording? " << (automatedInput.isRecording()? "YES":"NO") << endl;
     ss << " [P]laying? " << (automatedInput.isPlaying()? "YES":"NO") << endl;
+    ss << " [D]ebug view? " << (bDebug? "YES":"NO") << endl;
     ss << " [C]lear data" << endl;
     ss << " [S]ave data to XML" << endl;
     ss << " [L]oad data from XML" << endl;
@@ -47,18 +54,14 @@ void ofApp::draw()
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    if (key >= 32 && key <= 126) {
-        typedKeys += key;
-    }
-    
-    if (!automatedInput.isPlaying()) {
+    if (automatedInput.isIdle()) {
         ofFileDialogResult result;
         switch (key) {
             case 'r':
             case 'R':
                 ofBackground(0);
                 typedKeys = "";
-                automatedInput.toggleRecording();
+                automatedInput.startRecording();
                 break;
                 
             case 'p':
@@ -89,31 +92,59 @@ void ofApp::keyPressed(int key)
                 }
                 break;
                 
-            case OF_KEY_BACKSPACE:
-            case OF_KEY_DEL:
-                if (typedKeys.size()) {
-                    typedKeys.substr(0, typedKeys.size() - 1);
-                }
+            case 'd':
+            case 'D':
+                bDebug ^= 1;
                 break;
+        }
+
+    }
+    else if (automatedInput.isPlaying()) {
+        if (key == 'p' || key == 'P') {
+            automatedInput.stopPlayback();
+        }
+        else if (key == 'r' || key == 'R') {
+            // Ignore, as this toggles recording.
+        }
+        else if (key == 'd' || key == 'D') {
+            ofBackground(0);
+            bDebug ^= 1;
+        }
+        else if (key == OF_KEY_BACKSPACE || key == OF_KEY_DEL) {
+            if (typedKeys.size()) {
+                typedKeys.substr(0, typedKeys.size() - 1);
+            }
+        }
+        else if (key >= 32 && key <= 126) {
+            typedKeys += key;
+        }
+    }
+    else if (automatedInput.isRecording()) {
+        if (key == 'r' || key == 'R') {
+            automatedInput.stopRecording();
         }
     }
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
+void ofApp::keyReleased(int key)
+{
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y){
+void ofApp::mouseMoved(int x, int y)
+{
 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button)
 {
-    ofSetColor(255);
-    ofCircle(x, y, 25);
+    if (!bDebug) {
+        ofSetColor(255);
+        ofCircle(x, y, 25);
+    }
 }
 
 //--------------------------------------------------------------
