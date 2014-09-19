@@ -73,12 +73,6 @@ protected:
     long long _playbackStartTime;
     int _playbackIdx;
     
-    vector<ofxAutomatedInputEvent *> _inputEvents;
     
-    int playbackIndex ;
-    float maxLoopTime ;
-    float loopOffsetTime ;
-    float startPlaybackTime ;
-    float startRecordingTime ;
-    ofxXmlSettings xml ;
+    vector<ofxAutomatedInputEvent *> _inputEvents;
 };
