@@ -7,6 +7,7 @@
 //
 
 #include "ofxAutomatedInput.h"
+#include "ofxAutomatedInputControlEvent.h"
 #include "ofxAutomatedInputKeyEvent.h"
 #include "ofxAutomatedInputMouseEvent.h"
 #include "ofxAutomatedInputTouchEvent.h"
@@ -118,13 +119,24 @@ void ofxAutomatedInput::update(ofEventArgs& args)
         int nextIdx = _playbackIdx + 1;
         if (nextIdx >= _inputEvents.size()) {
             stopPlayback();
-            ofNotifyEvent(playbackFinishedEvent, currTimeOffset);
         }
         else if (_inputEvents[nextIdx]->timeOffset() <= currTimeOffset) {
             ofLogVerbose("ofxAutomatedInput::update") << "Playback ready to trigger event " << nextIdx;
 
+            // Always play back Control events.
+            if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_CONTROL) {
+                ofxAutomatedInputControlEvent * controlEvent = static_cast<ofxAutomatedInputControlEvent *>(_inputEvents[nextIdx]);
+                ofLogVerbose("ofxAutomatedInput::update") << "Triggering control event with type " << controlEvent->type();
+                
+                if (controlEvent->type() == ofxAutomatedInputControlEvent::Start) {
+                    ofNotifyEvent(playbackStartedEvent, currTimeOffset);
+                }
+                else {
+                    ofNotifyEvent(playbackStoppedEvent, currTimeOffset);
+                }
+            }
             // Check that the event type should be played back.
-            if (_inputEvents[nextIdx]->type() & _playbackFlags) {
+            else if (_inputEvents[nextIdx]->type() & _playbackFlags) {
                 if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
                     ofxAutomatedInputMouseEvent * mouseEvent = static_cast<ofxAutomatedInputMouseEvent *>(_inputEvents[nextIdx]);
                     ofLogVerbose("ofxAutomatedInput::update") << "Triggering mouse event with type " << mouseEvent->args().type;
@@ -236,6 +248,11 @@ void ofxAutomatedInput::startRecording(int recordFlags)
     _recordStartTime = ofGetElapsedTimeMillis();
     ofLogNotice("ofxAutomatedInput::startRecording") << _recordStartTime;
 
+    ofxAutomatedInputControlEvent * event = new ofxAutomatedInputControlEvent(0, ofxAutomatedInputControlEvent::Start);
+    _inputEvents.push_back(event);
+    
+    ofLogVerbose("ofxAutomatedInput::startRecording") << "Adding event with type " << event->type() << " at time " << 0;
+    
     if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
         ofAddListener(ofEvents().mouseMoved, this, &ofxAutomatedInput::mouseEventReceived);
         ofAddListener(ofEvents().mousePressed, this, &ofxAutomatedInput::mouseEventReceived);
@@ -259,8 +276,15 @@ void ofxAutomatedInput::startRecording(int recordFlags)
 void ofxAutomatedInput::stopRecording()
 {
     if (isRecording()) {
+        unsigned long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+        ofLogNotice("ofxAutomatedInput::stopRecording") << ofGetElapsedTimeMillis();
+
+        ofxAutomatedInputControlEvent * event = new ofxAutomatedInputControlEvent(timeOffset, ofxAutomatedInputControlEvent::Stop);
+        _inputEvents.push_back(event);
+        
+        ofLogVerbose("ofxAutomatedInput::stopRecording") << "Adding event with type " << event->type() << " at time " << timeOffset;
+
         _mode = OFX_AUTOMATED_INPUT_MODE_IDLE;
-        ofLogNotice("ofxAutomatedInput::stopRecording");
 
         if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
             ofRemoveListener(ofEvents().mouseMoved, this, &ofxAutomatedInput::mouseEventReceived);

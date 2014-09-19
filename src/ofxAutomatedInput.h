@@ -58,7 +58,9 @@ public:
     ofEvent<ofMouseEventArgs> mouseInputEvent;
     ofEvent<ofKeyEventArgs> keyInputEvent;
     ofEvent<ofTouchEventArgs> touchInputEvent;
-    ofEvent<unsigned long long> playbackFinishedEvent;
+    
+    ofEvent<unsigned long long> playbackStartedEvent;
+    ofEvent<unsigned long long> playbackStoppedEvent;
     
 protected:
     ofxAutomatedInputMode _mode;
