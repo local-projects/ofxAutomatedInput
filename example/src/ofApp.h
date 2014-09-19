@@ -30,7 +30,8 @@ public:
 //    void dragEvent(ofDragInfo dragInfo);
 //    void gotMessage(ofMessage msg);
     
-    void automatedInputPlaybackFinished(unsigned long long& duration);
+    void automatedInputPlaybackStarted(unsigned long long& duration);
+    void automatedInputPlaybackStopped(unsigned long long& duration);
     
     ofxAutomatedInput automatedInput;
     string typedKeys;

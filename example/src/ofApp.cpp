@@ -19,7 +19,8 @@ void ofApp::setup()
     ofBackground(0);
     typedKeys = "";
     
-    ofAddListener(automatedInput.playbackFinishedEvent, this, &ofApp::automatedInputPlaybackFinished);
+    ofAddListener(automatedInput.playbackStartedEvent, this, &ofApp::automatedInputPlaybackStarted);
+    ofAddListener(automatedInput.playbackStoppedEvent, this, &ofApp::automatedInputPlaybackStopped);
 }
 
 //--------------------------------------------------------------
@@ -128,10 +129,16 @@ void ofApp::mouseReleased(int x, int y, int button)
 }
 
 //--------------------------------------------------------------
-void ofApp::automatedInputPlaybackFinished(unsigned long long& duration)
+void ofApp::automatedInputPlaybackStarted(unsigned long long& duration)
 {
-    ofLog() << "ofApp::automatedInputPlaybackFinished";
+    ofLog() << "ofApp::automatedInputPlaybackStarted";
     
     ofBackground(0);
     typedKeys = "";
+}
+
+//--------------------------------------------------------------
+void ofApp::automatedInputPlaybackStopped(unsigned long long& duration)
+{
+    ofLog() << "ofApp::automatedInputPlaybackStopped";
 }
