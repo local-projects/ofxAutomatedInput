@@ -96,6 +96,8 @@ bool ofxAutomatedInput::loadFromXml(const string& path)
         return false;
     }
     
+    ofLogNotice("ofxAutomatedInput::loadFromXml") << "Successfully loaded " << _inputEvents.size() << " events with duration " << _inputEvents.back()->timeOffset();
+    
     return true;
 }
 
@@ -310,7 +312,8 @@ void ofxAutomatedInput::stopPlayback()
 {
     if (isPlaying()) {
         _mode = OFX_AUTOMATED_INPUT_MODE_IDLE;
-        ofLogNotice("ofxAutomatedInput::stopPlayback");
+        unsigned long long currTimeOffset = ofGetElapsedTimeMillis() - _playbackStartTime;
+        ofLogNotice("ofxAutomatedInput::stopPlayback") << currTimeOffset;
 
         ofRemoveListener(ofEvents().update, this, &ofxAutomatedInput::update);
     }
