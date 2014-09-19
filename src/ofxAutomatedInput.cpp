@@ -16,6 +16,8 @@
 ofxAutomatedInput::ofxAutomatedInput()
 : _mode(OFX_AUTOMATED_INPUT_MODE_IDLE)
 , _bTriggerOFEvents(true)
+, _bLooping(false)
+, _loopOffsetTime(0)
 {
     
 }
@@ -118,7 +120,14 @@ void ofxAutomatedInput::update(ofEventArgs& args)
         
         int nextIdx = _playbackIdx + 1;
         if (nextIdx >= _inputEvents.size()) {
-            stopPlayback();
+            if (_bLooping) {
+                _playbackStartTime = ofGetElapsedTimeMillis() + _loopOffsetTime;
+                _playbackIdx = -1;
+                ofLogNotice("ofxAutomatedInput::update") << "Looping playback with start time " << _playbackStartTime << " and offset " << _loopOffsetTime;
+            }
+            else {
+                stopPlayback();
+            }
         }
         else if (_inputEvents[nextIdx]->timeOffset() <= currTimeOffset) {
             ofLogVerbose("ofxAutomatedInput::update") << "Playback ready to trigger event " << nextIdx;

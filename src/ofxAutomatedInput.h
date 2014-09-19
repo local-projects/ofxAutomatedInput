@@ -55,6 +55,12 @@ public:
     void setTriggerOFEvents(bool bTriggerOFEvents) { _bTriggerOFEvents = bTriggerOFEvents; }
     bool triggersOFEvents() const { return _bTriggerOFEvents; }
     
+    void setLooping(bool bLooping) { _bLooping = bLooping; }
+    bool isLooping() const { return _bLooping; }
+    
+    void setLoopOffsetTime(long long loopOffsetTime) { _loopOffsetTime = loopOffsetTime; }
+    long long loopOffsetTime() const { return _loopOffsetTime; }
+    
     ofEvent<ofMouseEventArgs> mouseInputEvent;
     ofEvent<ofKeyEventArgs> keyInputEvent;
     ofEvent<ofTouchEventArgs> touchInputEvent;
@@ -73,6 +79,8 @@ protected:
     long long _playbackStartTime;
     int _playbackIdx;
     
+    bool _bLooping;
+    long long _loopOffsetTime;
     
     vector<ofxAutomatedInputEvent *> _inputEvents;
 };
