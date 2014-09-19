@@ -17,8 +17,7 @@ class ofxAutomatedInputKeyEvent
 {
 public:
     ofxAutomatedInputKeyEvent()
-    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_KEY)
-    {}
+    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_KEY) {}
     ofxAutomatedInputKeyEvent(float timeOffset, const ofKeyEventArgs& args)
     : ofxAutomatedInputEvent(timeOffset, OFX_AUTOMATED_INPUT_TYPE_KEY)
     , _args(args) {}

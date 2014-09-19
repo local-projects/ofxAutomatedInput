@@ -17,8 +17,7 @@ class ofxAutomatedInputMouseEvent
 {
 public:
     ofxAutomatedInputMouseEvent()
-    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_MOUSE)
-    {}
+    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_MOUSE) {}
     ofxAutomatedInputMouseEvent(float timeOffset, const ofMouseEventArgs& args)
     : ofxAutomatedInputEvent(timeOffset, OFX_AUTOMATED_INPUT_TYPE_MOUSE)
     , _args(args) {}

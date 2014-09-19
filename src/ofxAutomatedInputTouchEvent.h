@@ -17,8 +17,7 @@ class ofxAutomatedInputTouchEvent
 {
 public:
     ofxAutomatedInputTouchEvent()
-    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_TOUCH)
-    {}
+    : ofxAutomatedInputEvent(OFX_AUTOMATED_INPUT_TYPE_TOUCH) {}
     ofxAutomatedInputTouchEvent(float timeOffset, const ofTouchEventArgs& args)
     : ofxAutomatedInputEvent(timeOffset, OFX_AUTOMATED_INPUT_TYPE_TOUCH)
     , _args(args) {}
