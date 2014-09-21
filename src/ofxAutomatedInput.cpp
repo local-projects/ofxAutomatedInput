@@ -135,9 +135,9 @@ void ofxAutomatedInput::update(ofEventArgs& args)
             // Always play back Control events.
             if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_CONTROL) {
                 ofxAutomatedInputControlEvent * controlEvent = static_cast<ofxAutomatedInputControlEvent *>(_inputEvents[nextIdx]);
-                ofLogVerbose("ofxAutomatedInput::update") << "Triggering control event with type " << controlEvent->type();
+                ofLogVerbose("ofxAutomatedInput::update") << "Triggering control event for action " << controlEvent->action();
                 
-                if (controlEvent->type() == ofxAutomatedInputControlEvent::Start) {
+                if (controlEvent->action() == ofxAutomatedInputControlEvent::Start) {
                     ofNotifyEvent(playbackStartedEvent, currTimeOffset);
                 }
                 else {

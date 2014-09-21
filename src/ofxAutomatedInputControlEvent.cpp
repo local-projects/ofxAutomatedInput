@@ -17,7 +17,7 @@ void ofxAutomatedInputControlEvent::saveToXml(ofxXmlSettings& xml)
     {
         xml.addValue("time_offset", _timeOffset);
         
-        xml.addValue("type", (int)_type);
+        xml.addValue("action", (int)_action);
     }
     xml.popTag();
 }
@@ -25,13 +25,13 @@ void ofxAutomatedInputControlEvent::saveToXml(ofxXmlSettings& xml)
 //--------------------------------------------------------------
 void ofxAutomatedInputControlEvent::loadFromXml(ofxXmlSettings& xml, int idx)
 {
-    setType((ofxAutomatedInputControlEvent::Type)xml.getAttribute("event", "event_type", (int)OFX_AUTOMATED_INPUT_TYPE_CONTROL, idx));
+    setType((ofxAutomatedInputType)xml.getAttribute("event", "event_type", (int)OFX_AUTOMATED_INPUT_TYPE_CONTROL, idx));
     
     xml.pushTag("event", idx);
     {
         _timeOffset = xml.getValue("time_offset", 0);
         
-        _type = (ofxAutomatedInputControlEvent::Type)xml.getValue("type", (int)ofxAutomatedInputControlEvent::Start);
+        _action = (ofxAutomatedInputControlEvent::Action)xml.getValue("action", (int)ofxAutomatedInputControlEvent::Start);
     }
     xml.popTag();
 }
