@@ -16,7 +16,7 @@ Features
 
 Installation
 ------------
-Just dropping the folder into `openFrameworks/addons/`.
+Just drop the folder into `openFrameworks/addons/`.
 
 Dependencies
 ------------
