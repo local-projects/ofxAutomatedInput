@@ -145,11 +145,11 @@ void ofxAutomatedInput::update(ofEventArgs& args)
                 if (controlEvent->action() == ofxAutomatedInputControlEvent::Start) {
                     ofNotifyEvent(playbackStartedEvent, currTimeOffset);
                 }
-                else {
+                else if (controlEvent->action() == ofxAutomatedInputControlEvent::Stop) {
                     ofNotifyEvent(playbackStoppedEvent, currTimeOffset);
                 }
             }
-            // Check that the event type should be played back.
+            // Check that the input event type should be played back.
             else if (_inputEvents[nextIdx]->type() & _playbackFlags) {
                 if (_inputEvents[nextIdx]->type() == OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
                     ofxAutomatedInputMouseEvent * mouseEvent = static_cast<ofxAutomatedInputMouseEvent *>(_inputEvents[nextIdx]);
@@ -289,34 +289,34 @@ void ofxAutomatedInput::startRecording(int recordFlags)
 //--------------------------------------------------------------
 void ofxAutomatedInput::stopRecording()
 {
-    if (isRecording()) {
-        long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
-        ofLogNotice("ofxAutomatedInput::stopRecording") << ofGetElapsedTimeMillis();
+    if (!isRecording()) return;
+    
+    long long timeOffset = ofGetElapsedTimeMillis() - _recordStartTime;
+    ofLogNotice("ofxAutomatedInput::stopRecording") << ofGetElapsedTimeMillis();
 
-        ofxAutomatedInputControlEvent * event = new ofxAutomatedInputControlEvent(timeOffset, ofxAutomatedInputControlEvent::Stop);
-        _inputEvents.push_back(event);
-        
-        ofLogVerbose("ofxAutomatedInput::stopRecording") << "Adding event with type " << event->type() << " at time " << timeOffset;
+    ofxAutomatedInputControlEvent * event = new ofxAutomatedInputControlEvent(timeOffset, ofxAutomatedInputControlEvent::Stop);
+    _inputEvents.push_back(event);
+    
+    ofLogVerbose("ofxAutomatedInput::stopRecording") << "Adding event with type " << event->type() << " at time " << timeOffset;
 
-        _mode = OFX_AUTOMATED_INPUT_MODE_IDLE;
+    _mode = OFX_AUTOMATED_INPUT_MODE_IDLE;
 
-        if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
-            ofRemoveListener(ofEvents().mouseMoved, this, &ofxAutomatedInput::mouseEventReceived);
-            ofRemoveListener(ofEvents().mousePressed, this, &ofxAutomatedInput::mouseEventReceived);
-            ofRemoveListener(ofEvents().mouseDragged, this, &ofxAutomatedInput::mouseEventReceived);
-            ofRemoveListener(ofEvents().mouseReleased, this, &ofxAutomatedInput::mouseEventReceived);
-        }
-        if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_KEY) {
-            ofRemoveListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
-            ofRemoveListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
-        }
-        if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
-            ofRemoveListener(ofEvents().touchDown, this, &ofxAutomatedInput::touchEventReceived);
-            ofRemoveListener(ofEvents().touchMoved, this, &ofxAutomatedInput::touchEventReceived);
-            ofRemoveListener(ofEvents().touchUp, this, &ofxAutomatedInput::touchEventReceived);
-            ofRemoveListener(ofEvents().touchDoubleTap, this, &ofxAutomatedInput::touchEventReceived);
-            ofRemoveListener(ofEvents().touchCancelled, this, &ofxAutomatedInput::touchEventReceived);
-        }
+    if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_MOUSE) {
+        ofRemoveListener(ofEvents().mouseMoved, this, &ofxAutomatedInput::mouseEventReceived);
+        ofRemoveListener(ofEvents().mousePressed, this, &ofxAutomatedInput::mouseEventReceived);
+        ofRemoveListener(ofEvents().mouseDragged, this, &ofxAutomatedInput::mouseEventReceived);
+        ofRemoveListener(ofEvents().mouseReleased, this, &ofxAutomatedInput::mouseEventReceived);
+    }
+    if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_KEY) {
+        ofRemoveListener(ofEvents().keyPressed, this, &ofxAutomatedInput::keyEventReceived);
+        ofRemoveListener(ofEvents().keyReleased, this, &ofxAutomatedInput::keyEventReceived);
+    }
+    if (_recordFlags & OFX_AUTOMATED_INPUT_TYPE_TOUCH) {
+        ofRemoveListener(ofEvents().touchDown, this, &ofxAutomatedInput::touchEventReceived);
+        ofRemoveListener(ofEvents().touchMoved, this, &ofxAutomatedInput::touchEventReceived);
+        ofRemoveListener(ofEvents().touchUp, this, &ofxAutomatedInput::touchEventReceived);
+        ofRemoveListener(ofEvents().touchDoubleTap, this, &ofxAutomatedInput::touchEventReceived);
+        ofRemoveListener(ofEvents().touchCancelled, this, &ofxAutomatedInput::touchEventReceived);
     }
 }
 
