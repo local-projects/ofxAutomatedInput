@@ -57,15 +57,15 @@ void ofxAutomatedInputMouseEvent::debug()
     
     if (bActive) {
         ofSetColor(255, 127);
-        ofCircle(pos, bActive? 12.0f : 1.0f);
+        ofDrawCircle(pos, bActive? 12.0f : 1.0f);
     }
     
     ofSetColor(255, 255);
     ofSetLineWidth(2);
-    ofLine(pos.x - kPointerSize, pos.y, pos.x - kPointerSize + lineLength, pos.y);
-    ofLine(pos.x + kPointerSize, pos.y, pos.x + kPointerSize - lineLength, pos.y);
-    ofLine(pos.x, pos.y - kPointerSize, pos.x, pos.y - kPointerSize + lineLength);
-    ofLine(pos.x, pos.y + kPointerSize, pos.x, pos.y + kPointerSize - lineLength);
+    ofDrawLine(pos.x - kPointerSize, pos.y, pos.x - kPointerSize + lineLength, pos.y);
+    ofDrawLine(pos.x + kPointerSize, pos.y, pos.x + kPointerSize - lineLength, pos.y);
+    ofDrawLine(pos.x, pos.y - kPointerSize, pos.x, pos.y - kPointerSize + lineLength);
+    ofDrawLine(pos.x, pos.y + kPointerSize, pos.x, pos.y + kPointerSize - lineLength);
     
     ofPopStyle();
 }
