@@ -76,9 +76,11 @@ void ofxAutomatedInputTouchEvent::debug()
     ofSetLineWidth(2);
     ofNoFill();
     ofSetColor(255, 255);
+    ofDrawEllipse(_args.x * ofGetWidth(), _args.y * ofGetHeight(), MAX(kMinTouchSize, _args.width), MAX(kMinTouchSize, _args.height));
+    
     ofFill();
     ofSetColor(255, 127);
-    ofDrawEllipse(_args.x, _args.y, MAX(kMinTouchSize, _args.width), MAX(kMinTouchSize, _args.height));
+    ofDrawEllipse(_args.x * ofGetWidth(), _args.y * ofGetHeight(), MAX(kMinTouchSize, _args.width), MAX(kMinTouchSize, _args.height));
     
     ofPopStyle();
 }
